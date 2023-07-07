@@ -11,14 +11,16 @@ const Menu: FunctionComponent = () => {
     
   return (
     <header className="App-header">
+        <a href="https://wasolutions.co/es/">
         <img src="https://wasolutions.co/pt/wp-content/uploads/2020/06/wa-solutions-logo-header.png" alt="Logo" />
+        </a>
         <p/>
         <div className="contenedorGrid">
         <Button text="Ver Propinas" icon="hidepanel" onClick={()=>{setPropinaVisible(!PropinaVisible)}}></Button>        
         <Grid show={PropinaVisible} />
-        <Button text="Consultar Por Fechas" icon="hidepanel" onClick={()=>{setConsultaVisible(!ConsultaVisible)}}></Button>
+        <Button text="Consultar Por Fechas" icon="search" onClick={()=>{setConsultaVisible(!ConsultaVisible)}}></Button>
         <FormConsulta show={ConsultaVisible} />
-        <Button text="Ver Propinas" icon="hidepanel" onClick={()=>{setAgregarVisible(!AgregarVisible)}}></Button>
+        <Button text="Agregar Propina" icon="add" onClick={()=>{setAgregarVisible(!AgregarVisible)}}></Button>
         <AgregarForm show={AgregarVisible} />
       </div>
     </header>

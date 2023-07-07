@@ -58,7 +58,7 @@ if (show){
 
   return (  
     <Fragment>
-<h3>Consulta de Informacion</h3>
+<p>Seleccione un Rango de Fechas Para realizar la consulta</p>
   <div style={{ display: "flex", gap: "9px", justifyContent: "center" }}>
     <DateRangeBox
       displayFormat="yyyy-MM-dd"
