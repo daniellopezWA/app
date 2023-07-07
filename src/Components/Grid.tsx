@@ -1,30 +1,50 @@
 import { Fragment, FunctionComponent, useEffect, useState } from "react";
-import DataGrid, {
-  Column,
-  FilterRow,
-  Selection,
-  ColumnChooser,
-} from "devextreme-react/data-grid";
+import DataGrid from "devextreme-react/data-grid";
 import { characters } from "../api/character";
+import { Button, DateRangeBox, Popup, TextBox } from "devextreme-react";
+import moment from "moment";
+import { Fechas} from "../Interfaces/Interfaces";
 interface GridProps {
   Propinas: any;
 }
-
+export interface group {
+  [key: string]: any;
+}
 const Grid: FunctionComponent = () => {
   const [Propinas, setPropinas] = useState({});
-  const [Mesas, setMesas] = useState({})
-  const [error, seterror] = useState();
+  // const [DataFiltrada, setDataFiltrada] = useState()
+  // const PropinasArray = Object.values(Propinas)
+
   useEffect(() => {
-    characters.getPropinas().then((r) => {
+    characters.getPropinasNames().then((r) => {
       setPropinas(r.data);
     });
-    characters.getMesas().then((r) => {
-        setMesas(r.data);
-      });
   }, []);
+
+  // useEffect(()=>{
+  //   const dataFiltrada = PropinasArray.filter((item: any) => {
+  //     const fechaItem: Date = new Date(item.Fecha);
+  //     return fechaItem >= new Date(FechaInicio) && fechaItem <= new Date(FechaFin);
+  //   });
+
+  //   const agrupadoPorMesero = dataFiltrada.reduce((agrupacion: any, item: any) => {
+  //     if (!agrupacion[item.Nombre]) {
+  //       agrupacion[item.Nombre] = [];
+  //     }
+  //     agrupacion[item.Nombre].push(item);
+
+  //     return agrupacion;
+  //   }, {});
+  //   console.log(dataFiltrada)
+  //   console.log(agrupadoPorMesero)
+
+  // },[FechaFin, FechaInicio])
+
+
+
   return (
     <Fragment>
-        <h3>Propinas</h3>
+      <h3>Propinas</h3>
       <DataGrid
         dataSource={Propinas}
         noDataText="No hay datos"
@@ -32,13 +52,7 @@ const Grid: FunctionComponent = () => {
         columnAutoWidth={true}
       ></DataGrid>
       <p></p>
-      <h3>Mesas</h3>
-      <DataGrid
-        dataSource={Mesas}
-        noDataText="No hay datos"
-        showBorders={true}
-        columnAutoWidth={true}
-      ></DataGrid>
+      
     </Fragment>
   );
 };

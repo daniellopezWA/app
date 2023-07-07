@@ -27,5 +27,7 @@ code {
   padding-bottom: 4rem;    
   align-items: center;
 }
-
+ p{
+   font-size: medium;
+ }
 

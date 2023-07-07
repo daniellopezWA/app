@@ -5,15 +5,28 @@ export interface Mesero {
     cedula:   number;
 }
 
+
+
+export interface Fechas {
+    fechaInicio: string,
+    fechaFin: string
+}
+
 export interface Mesas {
     id:           number;
     descripccion: string;
 }
 
 export interface Propinas {
-    id:           number;
+    id?:          number;
     idMesa:       number;
     idMesero:     number;
-    ValorPropina: number;
-    fecha:        Date;
+    valorPropina: number;
+    fecha:        string;
+}
+export interface PropinasNames {
+    id?:          number;
+    Nombre:       string;
+    valorPropina: number;
+    fecha:        string;
 }
