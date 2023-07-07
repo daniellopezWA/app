@@ -1,19 +1,11 @@
 
 import "devextreme/dist/css/dx.dark.css";
 import "./App.css";
-import Grid from "./Components/Grid";
-import AgregarForm from "./Components/Form";
-import FormConsulta from "./Components/FormConsulta";
+import Menu from "./Menu/Menu";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="contenedorGrid">
-          <Grid />
-          <FormConsulta/>
-          <AgregarForm/>
-        </div>
-      </header>
+      <Menu/>
     </div>
   );
 }

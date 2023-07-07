@@ -5,12 +5,12 @@ import { Button, DateRangeBox, Popup, TextBox } from "devextreme-react";
 import moment from "moment";
 import { Fechas} from "../Interfaces/Interfaces";
 interface GridProps {
-  Propinas: any;
+  show: boolean
 }
 export interface group {
   [key: string]: any;
 }
-const Grid: FunctionComponent = () => {
+const Grid: FunctionComponent<GridProps> = ({show}) => {
   const [Propinas, setPropinas] = useState({});
   // const [DataFiltrada, setDataFiltrada] = useState()
   // const PropinasArray = Object.values(Propinas)
@@ -41,8 +41,8 @@ const Grid: FunctionComponent = () => {
   // },[FechaFin, FechaInicio])
 
 
-
-  return (
+if (show){
+    return (
     <Fragment>
       <h3>Propinas</h3>
       <DataGrid
@@ -55,6 +55,10 @@ const Grid: FunctionComponent = () => {
       
     </Fragment>
   );
+}else{
+  return null
+}
+
 };
 
 export default Grid;

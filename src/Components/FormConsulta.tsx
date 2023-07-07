@@ -4,9 +4,13 @@ import { characters } from "../api/character";
 import { Button, DateRangeBox, Popup, TextBox } from "devextreme-react";
 import moment from "moment";
 import { Fechas} from "../Interfaces/Interfaces";
+import notify from 'devextreme/ui/notify';
 
+interface Formprops{
+  show: boolean
+}
  
-const FormConsulta: FunctionComponent = () => {
+const FormConsulta: FunctionComponent<Formprops> = ({show}) => {
 
  
   const [FechaFin, setFechaFin] = useState(String);
@@ -28,60 +32,75 @@ const FormConsulta: FunctionComponent = () => {
       fechaInicio: FechaInicio,
       fechaFin: FechaFin,
     };
-    const resultMesero = await characters.postMayorMesero(fechasconsulta);
+    if(FechaFin!=""&& FechaInicio!=""){
+      const resultMesero = await characters.postMayorMesero(fechasconsulta);
     setMayorMesero(resultMesero.data);
     const resultMesa = await characters.postMayorMesa(fechasconsulta);
     setMeyorMesa(resultMesa.data);
     const resultpromedio = await characters.postPromedioPropina(fechasconsulta);
     setPromedio(resultpromedio.data);
     setVisible(true);
+    }else{
+      notify({
+        message: 'Selecciona Un Rango De Fechas',
+        position: {
+          my: 'center',
+          at: 'center',
+        },
+      }, 'warning', 1300);
+    }
+    
+
+    
   };
 
+if (show){
 
-
-    return (  
-        <Fragment>
+  return (  
+    <Fragment>
 <h3>Consulta de Informacion</h3>
-      <div style={{ display: "flex", gap: "9px", justifyContent: "center" }}>
-        <DateRangeBox
-          displayFormat="yyyy-MM-dd"
-          onValueChange={selecionarFechas}
-          dateSerializationFormat={"yyyy-MM-dd"}
-          width={400}
-        />
-        <p />
-        <Button text="Consultar" icon="search" width={30} height={30} onClick={Calcular} />
-        <Popup
-          visible={visible}
-          title={"Consulta entre " + FechaInicio + " y " + FechaFin}
-          showCloseButton={false}
-          hideOnOutsideClick={true}
-          width={500}
-          height={450}
-          onHiding={() => setVisible(false)}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <p>Segun las fechas Seleccionadas:</p>
-            <p>Mesero con Mayor Propina</p>
-            <DataGrid dataSource={MayorMesero} width={200} />
-            <p> Mesa con mayor Propina</p>
-            <DataGrid dataSource={MeyorMesa} width={200} />
-            <p>
-              Promedio de Propinas entre {FechaInicio} y {FechaFin}
-            </p>
-            <TextBox  value={Promedio[0].Promedio.toString()}  >
-            </TextBox>
-          </div>
-        </Popup>
+  <div style={{ display: "flex", gap: "9px", justifyContent: "center" }}>
+    <DateRangeBox
+      displayFormat="yyyy-MM-dd"
+      onValueChange={selecionarFechas}
+      dateSerializationFormat={"yyyy-MM-dd"}
+      width={400}
+    />
+    <p />
+    <Button text="Consultar" icon="search" width={30} height={30} onClick={Calcular} />
+    <Popup
+      visible={visible}
+      title={"Consulta entre " + FechaInicio + " y " + FechaFin}
+      showCloseButton={false}
+      hideOnOutsideClick={true}
+      width={500}
+      height={450}
+      onHiding={() => setVisible(false)}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <p>Segun las fechas Seleccionadas:</p>
+        <p>Mesero con Mayor Propina</p>
+        <DataGrid dataSource={MayorMesero} width={200} />
+        <p> Mesa con mayor Propina</p>
+        <DataGrid dataSource={MeyorMesa} width={200} />
+        <p>
+          Promedio de Propinas entre {FechaInicio} y {FechaFin}
+        </p>
+        <TextBox  value={Promedio[0].Promedio.toString()}  >
+        </TextBox>
       </div>
-        </Fragment>
-    );
+    </Popup>
+  </div>
+    </Fragment>
+);
+}else {return null}
+
 }
  
 export default FormConsulta;
