@@ -6,11 +6,12 @@ import moment from "moment";
 import { Fechas} from "../Interfaces/Interfaces";
 interface GridProps {
   show: boolean
+  recargar?: boolean
 }
 export interface group {
   [key: string]: any;
 }
-const Grid: FunctionComponent<GridProps> = ({show}) => {
+const Grid: FunctionComponent<GridProps> = ({show, recargar=true}) => {
   const [Propinas, setPropinas] = useState({});
   // const [DataFiltrada, setDataFiltrada] = useState()
   // const PropinasArray = Object.values(Propinas)
@@ -18,8 +19,9 @@ const Grid: FunctionComponent<GridProps> = ({show}) => {
   useEffect(() => {
     characters.getPropinasNames().then((r) => {
       setPropinas(r.data);
+      console.log("recargue")
     });
-  }, []);
+  }, [recargar]);
 
   // useEffect(()=>{
   //   const dataFiltrada = PropinasArray.filter((item: any) => {
