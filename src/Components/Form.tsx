@@ -37,10 +37,7 @@ const AgregarForm: FunctionComponent<Props> = ({show}) => {
     setFecha(e)
   }
   const selecionarPropina = (e:any)=>{
-    
-      setPropina(e);
-      console.log(e)
-    
+      setPropina(e);    
   }
 
   const cargar = () => {
@@ -52,7 +49,7 @@ const AgregarForm: FunctionComponent<Props> = ({show}) => {
     }
     console.log(propinanew)
 
-   if (Mesa!=0 && Mesero!=null&& Fecha!=''&& Propina!=0) {
+   if (Mesa!=0 && Mesero!=null&& Fecha!=null&&Fecha!=''&& Propina!=null &&Propina!=0) {
     setVisible(true);
 
   } else {
