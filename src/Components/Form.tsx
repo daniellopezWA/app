@@ -43,16 +43,7 @@ const AgregarForm: FunctionComponent<Props> = ({show}) => {
     
   }
 
-
-  function validator (obj:{}) {
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        return true
-      }
-    }
-    return false
-  }
-  const guardar = () => {
+  const cargar = () => {
     const propinanew: Propinas ={
       idMesa:  Mesa,
       idMesero: Mesero,
@@ -62,9 +53,7 @@ const AgregarForm: FunctionComponent<Props> = ({show}) => {
     console.log(propinanew)
 
    if (Mesa!=0 && Mesero!=null&& Fecha!=''&& Propina!=0) {
-    characters.postPropinas(propinanew)
-    console.log(propinanew);
-    setVisible(false);
+    setVisible(true);
 
   } else {
     notify({
@@ -79,8 +68,22 @@ const AgregarForm: FunctionComponent<Props> = ({show}) => {
 
 
   };
-  const mostrarPopup = () => {
-    setVisible(true);
+  const Guardar = () => {
+    const propinanew: Propinas ={
+      idMesa:  Mesa,
+      idMesero: Mesero,
+      valorPropina: Propina,
+      fecha: Fecha
+    }
+    characters.postPropinas(propinanew)
+    setVisible(false)
+    notify({
+      message: 'Datos Guardados',
+      position: {
+        my: 'center',
+        at: 'center',
+      },
+    }, 'success', 1000);
   };
   if(show){
     return (
@@ -128,7 +131,7 @@ const AgregarForm: FunctionComponent<Props> = ({show}) => {
             text="Guardar"
             icon="save"
             type="success"
-            onClick={guardar}
+            onClick={cargar}
           />
           <Popup
             visible={visible}
@@ -139,8 +142,8 @@ const AgregarForm: FunctionComponent<Props> = ({show}) => {
             height={"30%"}
             onHiding={() => setVisible(false)}
           >
-            <p>¿Está seguro de guardar los datos?</p>
-            <Button text="Sí" type="success" onClick={guardar} />
+            <p>¿Está seguro de cargar los datos?</p>
+            <Button text="Sí" type="success" onClick={Guardar} />
             <Button text="No" type="danger" onClick={() => setVisible(false)} />
           </Popup>
         </div>
